@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>
+    <script src="https://unpkg.com/react@16.3.0-alpha.1/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.3.0-alpha.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <title>Store</title>
   </head>
   <body>
@@ -20,6 +23,7 @@
       <button id="goalBtn">Add Todo</button>
       <ul id="goals"></ul>
     </div>
+    <div id="app"></div>
     <script>
       // App Code
       const ADD_TODO = "ADD_TODO";
@@ -132,7 +136,7 @@
           goals,
           todos,
         }),
-        Redux.applyMiddleware(checker)
+        Redux.applyMiddleware(checker, logger)
       );
 
       store.subscribe(() => {
@@ -205,6 +209,41 @@
         node.appendChild(removeBtn);
         document.getElementById("goals").appendChild(node);
       }
+    </script>
+    <script type="text/babel">
+      function List() {
+        return (
+          <ol>
+            <li>LIST</li>
+          </ol>
+        );
+      }
+      function Todos() {
+        return (
+          <div>
+            TODOS
+            <List />
+          </div>
+        );
+      }
+      function Goals() {
+        return (
+          <div>
+            GOALS
+            <List />
+          </div>
+        );
+      }
+      function App() {
+        return (
+          <div>
+            <Todos />
+            <Goals />
+          </div>
+        );
+      }
+
+      ReactDOM.render(<App />, document.getElementById("app"));
     </script>
   </body>
 </html>
